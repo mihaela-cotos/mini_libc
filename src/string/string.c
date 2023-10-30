@@ -196,7 +196,8 @@ void *memmove(void *destination, const void *source, size_t num)
 
 	/*  create a temporary array that stores source content
 	in case source and destination addresses are overlapping */
-	char tmp[(const)num];
+	const size_t size = num;
+	char tmp[size];
 
 	for (size_t i = 0; i < num; i++) {
 		tmp[i] = src[i];

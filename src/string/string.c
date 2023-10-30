@@ -51,7 +51,6 @@ char *strcat(char *destination, const char *source)
 
 char *strncat(char *destination, const char *source, size_t len)
 {
-
 	size_t dest_len = strlen(destination);
 	size_t i;
 
@@ -136,7 +135,7 @@ char *strrchr(const char *str, int c)
 			return str + i;
 		}
 	}
-	
+
 	return NULL;
 }
 
@@ -170,7 +169,7 @@ char *strrstr(const char *haystack, const char *needle)
 			last = haystack + i;
 		}
 	}
-	
+
 	return last;
 }
 
@@ -190,15 +189,15 @@ void *memcpy(void *destination, const void *source, size_t num)
 }
 
 void *memmove(void *destination, const void *source, size_t num)
-{	
+{
 	// cast destination and source to char*
 	char* dest = (char *)destination;
 	char* src = (char *)source;
 
 	/*  create a temporary array that stores source content
-		in case source and destination addresses are overlapping */
-	char tmp[num];
-	
+	in case source and destination addresses are overlapping */
+	char tmp[(const)num];
+
 	for (size_t i = 0; i < num; i++) {
 		tmp[i] = src[i];
 	}
@@ -232,7 +231,7 @@ void *memset(void *source, int value, size_t num)
 {
 	// cast source to char*
 	char* src = (char *)source;
-	
+
 	for (size_t i = 0; i < num; i++) {
 		// fill source with the constant byte (int value)
 		src[i] = (unsigned char)value;

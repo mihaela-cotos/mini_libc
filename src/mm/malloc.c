@@ -45,9 +45,11 @@ void free(void *ptr)
 	}
 
 	// get length
-	size_t length = mem_list_find(ptr)->len;
+	struct mem_list *item = mem_list_find(ptr);
+	size_t length = item->len;
+
 	// remove from mem_list
-	mem_list_del(ptr);
+	mem_list_del(item->start);
 
 	// delete mapping for ptr
 	munmap(ptr, length);
@@ -82,7 +84,7 @@ void *realloc(void *ptr, size_t size)
 	memcpy(new_ptr, ptr, copy_len);
 
 	// delete from list
-	mem_list_del(ptr);
+	mem_list_del(item->start);
 
 	return new_ptr;
 }

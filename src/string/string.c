@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 #include <string.h>
+#include <stdlib.h>
 
 char *strcpy(char *destination, const char *source)
 {
@@ -196,8 +197,7 @@ void *memmove(void *destination, const void *source, size_t num)
 
 	/*  create a temporary array that stores source content
 	in case source and destination addresses are overlapping */
-	const size_t size = num;
-	char tmp[size];
+	char* tmp = malloc(num * sizeof(char));
 
 	for (size_t i = 0; i < num; i++) {
 		tmp[i] = src[i];
@@ -208,6 +208,7 @@ void *memmove(void *destination, const void *source, size_t num)
 		dest[i] = tmp[i];
 	}
 
+	free(tmp);
 	return destination;
 }
 
@@ -240,5 +241,3 @@ void *memset(void *source, int value, size_t num)
 
 	return source;
 }
-
-

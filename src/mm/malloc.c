@@ -10,7 +10,7 @@
 
 void *malloc(size_t size)
 {
-	// map a region of memory 
+	// map a region of memory
 	void* new_ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	if (new_ptr == MAP_FAILED) {
 		return NULL;
@@ -82,7 +82,7 @@ void *realloc(void *ptr, size_t size)
 	memcpy(new_ptr, ptr, copy_len);
 
 	// delete from list
-	int dummy = mem_list_del(ptr);
+	mem_list_del(ptr);
 
 	return new_ptr;
 }
@@ -97,8 +97,8 @@ void *reallocarray(void *ptr, size_t nmemb, size_t size)
 	// compute size
 	size_t size_realloc = nmemb * size;
 
-	// check overflow
-	if (nmemb > 0 && size > 0 && nmemb + size < 0) {
+	// detect unsigned long overflow
+	if (size_realloc / size != nmemb) {
 		errno = ENOMEM;
 		return NULL;
 	}

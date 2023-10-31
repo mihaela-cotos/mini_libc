@@ -116,7 +116,7 @@ char *strchr(const char *str, int c)
 	for (i = 0; i < len; i++) {
 		if (str[i] == c) {
 			// if found => return
-			return str + i;
+			return (char*)(str + i);
 		}
 	}
 
@@ -132,7 +132,7 @@ char *strrchr(const char *str, int c)
 	for (i = len; i > 0; i--) {
 		if (str[i] == c) {
 			// if char is found => return
-			return str + i;
+			return (char*)(str + i);
 		}
 	}
 
@@ -148,7 +148,7 @@ char *strstr(const char *haystack, const char *needle)
 	for (i = 0; i <= haystack_len - needle_len; i++) {
 		// using previous functions to search needle in the haystack
 		if (strncmp(haystack + i, needle, needle_len) == 0) {
-			return haystack + i;
+			return (char*)(haystack + i);
 		}
 	}
 
@@ -159,14 +159,14 @@ char *strrstr(const char *haystack, const char *needle)
 {
 	size_t haystack_len = strlen(haystack);
 	size_t needle_len = strlen(needle);
-	size_t i, j;
+	size_t i;
 
 	char* last = NULL;
 
 	for (i = 0; i <= haystack_len - needle_len; i++) {
 		// using previous functions to search needle in the haystack
 		if (strncmp(haystack + i, needle, needle_len) == 0) {
-			last = haystack + i;
+			last = (char*)(haystack + i);
 		}
 	}
 
@@ -240,3 +240,5 @@ void *memset(void *source, int value, size_t num)
 
 	return source;
 }
+
+
